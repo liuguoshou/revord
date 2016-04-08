@@ -1,0 +1,98 @@
+@charset "utf-8";
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,select,textarea { margin:0; padding:0;}
+body { font-size:12px; font-family:Arial,微软雅黑,宋体;}
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th { font-weight:normal; font-size:100%; }
+fieldset,img,iframe { border:none; }
+img, input { vertical-align:middle;}
+table { border-collapse:collapse; border-spacing:0;}
+input, button, textarea, select {*font-size:100%;}
+ol,ul {list-style:none;}
+.clearer{ height:0; margin:0; padding:0; line-height:0.01em; font-size:0.01em; display:block; clear:both;}
+.hid{display:none}
+.hidden{ visibility:hidden}
+.text_lr{text-align:justify; text-justify:inter-ideograph;}
+/*font*/
+.f_hei{font-family:黑体,sumhei;}
+.f_green { color:green;}
+.f_red { color:red;}
+.f_orange { color:orange;}
+
+a{ color:#000; text-decoration:none}
+a:hover{ text-decoration:underline}
+.a_blue_line{color:#6b98f3;text-decoration:underline}
+
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt20{margin-top:20px;}
+.mt30{margin-top:30px;}
+.mb10{margin-bottom:10px;}
+.mb20{margin-bottom:20px;}
+.mlr10{margin:0 10px;}
+.pl100{padding-left:100px;}
+.mr10{margin-right:10px;}
+/***************reset css end*****************/
+
+body{ background:url(../images/body_bg.png) repeat;color:#666}
+.header{ background:url(../images/top_bg.png) repeat-x;height:63px;width:100%;}
+.header_con{ width:960px;margin:0 auto;}
+.logo{ float:left}
+.login{ float:right;height:30px;padding-top:33px;color:#e6f2fc;}
+.login a{color:#fff;margin:0 10px;}
+
+.container{width:958px;border:1px solid #d9d9d9;margin:5px auto 20px auto;background-color:#fff;}
+.sidebar{width:175px;float:left;}
+.sidebar ul{margin:30px 10px 0 10px;}
+.sidebar a{color:#666;display:block;padding-left:45px;border-bottom:1px solid #d9d9d9;background:url(../images/leftbar_dot.png) no-repeat 20px -70px; line-height:40px;font-size:14px;height:40px;}
+.sidebar a:hover,.sidebar .current_bar{color:#6bb1f3;text-decoration:none;font-weight:bold;background-position:20px 14px}
+
+/*公共*/
+.textfield{width:160px;border:1px solid #a8acad;background:url(../images/textfield_bg.png) repeat-x;height:24px;line-height:24px;}
+.yellow_btn{background:url(../images/yellow_btn.png) no-repeat;width: 65px;height:27px;line-height:27px;text-align:center;color:#fff;font-size:14px;border:0;font-weight:bold;cursor:pointer}
+.gray_btn{background:url(../images/gray_btn.png) no-repeat;width:103px;height:27px;line-height:27px;text-align:center;color:#fff;font-size:14px;border:0;font-weight:bold;cursor:pointer}
+
+.suc_prompt{padding:6px 10px 6px 36px;background:#f1ffee url(../images/suc_icon.png) no-repeat 10px 6px;border:1px solid #d9d9d9;overflow:hidden;font-weight:bold;font-size:14px;}
+.error_prompt{padding:6px 10px 6px 36px;background:#ffeeee url(../images/error_icon.png) no-repeat 10px 6px;border:1px solid #ffccbb;overflow:hidden;font-weight:bold;font-size:14px;}
+
+.tb_01{border-left:1px solid #d9d9d9;border-top:1px solid #d9d9d9; clear:both;}
+.tb_01 th,.tb_01 td{border-right:1px solid #d9d9d9;border-bottom:1px solid #d9d9d9;text-align:center;padding:5px;}
+.tb_01 th{background-color:#f2f2f2;font-weight:bold;white-space:nowrap;height:20px;}
+
+.form_01 p{ margin-top:20px;}
+.form_01 p label{ width:80px; text-align:right; display:inline-block;margin-right:10px;}
+/*公共 end*/
+
+.content{float:left;width:722px;border-left:1px solid #d9d9d9;padding:0 30px 30px 30px;min-height:500px;_height:500px;}
+.current{border-bottom:1px solid #d9d9d9;padding:10px 0;}
+.blue_tt{padding:10px 0;}
+.blue_tt strong{font-size:18px;font-weight:bold;color:#6bb1f3;}
+.line{border-bottom:1px solid #d9d9d9;overflow:hidden;height:1px;}
+
+.info img{float:left; padding:2px;border:1px solid #ccc;}
+.info p{ margin-left:160px;line-height:1.8em;}
+
+.footer{width:960px;margin:20px auto;text-align:center; line-height:2em;}
+.footer a{color:#7d95c5;margin:0 8px;}
+
+
+
+
+/*登录*/
+.welcome{width:960px;margin:50px auto;background:#fff  no-repeat 645px 410px;overflow:hidden;-webkit-box-shadow:2px 4px 10px #000;-moz-box-shadow:2px 4px 10px #000;}
+
+.welcome dt{background:url(../images/login_bg.png);height:285px;}
+.welcome dd{height:210px;padding:20px 0 0 130px;}
+.form_02 h4{height:18px;line-height:18px;padding-left:24px;margin-left:50px;background:url(../images/prompt_icon.png) no-repeat 0 -92px;color:#f00;}
+.form_02 p{clear:both;overflow:hidden;height:26px;margin-top:20px;}
+.form_02 .textfield{float:left}
+.form_02 label{width:70px;text-align:right;font-weight:bold;margin-right:5px;display:block;float:left;height:24px;line-height:24px;}
+.form_02 strong{font-size:18px;font-family:Arial;}
+.form_03 label{width:100px;}
+.error{display:inline;float:left;width:240px;margin-left:10px;background:#ffeeee url(../images/error_icon.png) no-repeat 6px 3px;border:1px solid #ffccbb;overflow:hidden;height:24px;line-height:24px;padding-left:30px;}
+
+.login_btn{padding-left:75px;}
+
+.welcome2 dt{height:175px;}
+.welcome2 dd{height:320px;}
+.forgetPwd{ background:url(../images/prompt_icon.png) no-repeat 0 -45px;height:18px;line-height:18px;margin:45px 0 20px 0;padding-left:24px;font-weight:bold}
+.suc_email{background:url(../images/prompt_icon.png) no-repeat 0 0;height:18px;line-height:18px;margin:125px 0 20px 0;padding-left:24px;font-weight:bold}
+.pwd_suc{ background:url(../images/pwd_icon.png) no-repeat;height:50px;line-height:50px;font-size:30px;font-weight:bold;margin:100px 0 100px 180px;padding-left:55px;}

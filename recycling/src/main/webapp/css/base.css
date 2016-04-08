@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,div,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,iframe,input,textarea,select,label,article,aside,footer,header,menu,nav,section,time,audio,video {
+  margin:0;
+  padding:0;
+  font-size:100%;
+  font-weight:normal;
+}
+article,aside,footer,header,hgroup,nav,section,audio,canvas,video,img {
+    display:block;
+}
+body {
+    font-size:100%;
+	color:#5a3d0f;
+    font-family:Helvetica,STHeiti,Droid Sans Fallback;
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+body{background:url(../images/body.png) repeat;}
+a{text-decoration:none; color:#ffa200;}
+iframe,img{border:0;}
+img{vertical-align:bottom;}
+input,select,textarea{outline:none; -webkit-user-modify:read-write-plaintext-only; color:#5a3d0f;/*去除android浏览器中获得焦点时的高亮*/}
+textarea{resize:none;/*不允许用户调整大小*/}
+input{-webkit-appearance:none;}/*取消iphone自带样式*/
+ul,ol,li{list-style:none;}
+
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix { zoom: 1;}
+.clear{clear:both;height:0px;font-size: 1px;line-height: 0px;margin-top:-1px;}
+
+/**/
+.warpxx{clear:both; overflow:hidden; padding:0; margin:0;}
+footer{height:40px; background:url(../images/bg1.png) repeat; padding:10px 0; border-top:1px solid #5a3d0f; }
+footer li{float:left; width:33.333%; text-align:center;}
+footer .ff2 li{width:50%;}
+footer a{font-size:0.875em; color:#5a3d0f;}
+footer em{display:block; margin:0 auto 3px;}
+footer em.f1{background:url(../images/i_9.png) no-repeat; width:16px; height:17px; background-size:16px auto;}
+footer em.f2{background:url(../images/i_10.png) no-repeat; width:16px; height:17px; background-size:16px auto;}
+footer em.f3{background:url(../images/i_11.png) no-repeat; width:16px; height:17px; background-size:16px auto;}
+footer .mybag{width:70px; padding:5px 10px; border:1px #f00 solid; background:#f2e9de; border:1px #5a3d0f solid; border-radius:5px; height:auto; display:none; position:absolute; right:16.6%; bottom:70px; margin-right:-43px;}
+footer .mybag p{height:20px; padding:8px 0; text-align:center; border-bottom:1px #5a3d0f solid;}
+footer .mybag .none{border:0;}
+footer .mybag .myico{background:url(../images/i_24.png) no-repeat; width:10px; height:8px; background-size:10px auto; display:block; position:absolute; left:50%; margin-left:-5px; bottom:-8px;}
+
+/**/
+.popup{position:absolute; position:absolute; left:50%; margin-left:-40%; z-index:9999999; background:#fff; border-radius:10px; width:80%; top:20%;}
+.popup .po1,.popup .po2{padding:20px; line-height:24px; border-bottom:1px #d4d5d6 solid; clear:both; overflow:hidden;}
+.popup .po2{text-align:center;}
+.podl{clear:both; overflow:hidden;}
+.podl dt,.podl dd{width:49.4%; float:left; height:20px; padding:10px 0; text-align:center;}
+.podl dt{ border-right:1px #d4d5d6 solid;"}

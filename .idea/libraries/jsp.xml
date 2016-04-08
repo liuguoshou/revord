@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jsp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/recycling_admin/src/main/webapp/js/umeditor/jsp/commons-fileupload-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/recycling_admin/src/main/webapp/js/umeditor/jsp/ueditor-mini.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

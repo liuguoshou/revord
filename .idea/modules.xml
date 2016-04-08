@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/recycling/recycling.iml" filepath="$PROJECT_DIR$/recycling/recycling.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recycling_admin/recycling-admin.iml" filepath="$PROJECT_DIR$/recycling_admin/recycling-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recycling_common/recycling-common.iml" filepath="$PROJECT_DIR$/recycling_common/recycling-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recycling_parent/recycling-pom-base.iml" filepath="$PROJECT_DIR$/recycling_parent/recycling-pom-base.iml" />
+    </modules>
+  </component>
+</project>

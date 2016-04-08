@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	margin:0;
+	padding:0;
+	font-size:15px;
+	color:#a9a9a9;
+	font-family:"Microsoft YaHei";
+}
+ul,li{margin:0;padding:0; list-style:none;}
+h1,h2,h3,h4,h5{margin:0;padding:0;}
+
+.font1{
+	color:#e6422c;
+	font-size:17px;
+	line-height:30px;
+}
+.font2{
+	color:#000;
+	font-size:16px;
+	line-height:30px;
+}
+.font3{
+	color:#000;
+	font-size:18px;
+	line-height:50px;
+}
+.font4{
+	color:#a9a9a9;
+	font-size:15px;
+	line-height:22px;
+	word-wrap: break-word;
+}
+.font5{
+	color:#a9a9a9;
+	font-size:14px;
+	line-height:20px;
+}
+.font6{
+	color:#f7650d;
+	font-size:14px;
+}
+.font7{
+	color:#2985d8;
+	font-size:17px;
+	line-height:30px;
+}
+.font8{
+	color:#fd5413;
+	font-size:16px;
+}
+
+.list_acti{
+	background:url("../images/arrow.jpg") no-repeat right center #f4f4f4;
+	border-top:1px solid #fff;
+	border-bottom:1px solid #d1d1d1;
+	height:80px;
+	padding:0px 15px;
+}
+
+.padding1{
+	padding:15px;
+}
+
+.padding1 img{width:100%;}
+.iph , .and{
+	height:100px;
+	width:48%;
+	display:inline-block;
+	text-decoration:none;
+	border:0;
+	margin-top:50px;
+}
+.iph{
+	padding-right:2%;
+}
+.download{ width:100%}
+.fany a{text-decoration:none;color:#666; padding:20px 30px; font-size:16px}
+.fany a.first{ color:#A9A9A9}
+a{
+	text-decoration: none;
+	color: black;
+}
+.list_acti {
+
+}

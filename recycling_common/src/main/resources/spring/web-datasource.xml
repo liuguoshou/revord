@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	
+	<!--支持Annotation注解 -->
+	<context:component-scan base-package="com.recycling.*" annotation-config="true">
+	</context:component-scan>
+	<!-- 动态数据源的父类,其中配置的参数为子数据库的default值 -->
+	<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" abstract="true">
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>${jdbc.maxPoolSize}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>${jdbc.minPoolSize}</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>${jdbc.initialPoolSize}</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>${jdbc.idleConnectionTestPeriod}
+			</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>${jdbc.maxIdleTime}</value>
+		</property>
+	</bean>
+
+	<!-- 子数据源,写操作主库,无需修改配置参数 -->
+	<bean id="write" parent="parentDataSource"></bean>
+
+	<!-- 子数据源,只读数据源热read02,只需对url,user,password重新赋值 -->
+	<bean id="read02" destroy-method="close" parent="parentDataSource">
+		<property name="jdbcUrl">
+			<value>${jdbc.read.db02.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.read.db02.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.read.db02.password}</value>
+		</property>
+	</bean>
+
+	
+	<!-- 动态数据源 -->
+	<bean id="dataSource" class="com.recycling.common.ds.DataSourceRouter">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="write" value-ref="write" />
+				<entry key="read02" value-ref="read02" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="write" />
+		<property name="dataSourceKey">
+			<ref local="dataSourceKey" />
+		</property>
+	</bean>
+
+	<!-- 读写管理 -->
+	<bean id="dataSourceKey" class="com.recycling.common.ds.DataSourceKeyImpl">
+		<property name="readDateSourceMap">
+			<map key-type="java.lang.String">
+				<entry key="read02" value="read02" />
+			</map>
+		</property>
+		<property name="writeKey">
+			<value>write</value>
+		</property>
+	</bean>
+	<!-- 事务配置 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 事务管理拦截器 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="query*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="is*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="find*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="get*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="load*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="count*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="list*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="check*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="activation*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="destory*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="upd*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="rem*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="create*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="set*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="follow*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="exit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="kiss*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="complate*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="cancel*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="adminCancel*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="credit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="debit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_SUPPORTS,-Exception</prop>
+
+			</props>
+		</property>
+	</bean>
+
+
+
+	<!-- 动态数据源拦截器 -->
+	<bean id="dataSourceInterceptor" class="com.recycling.common.ds.DataSourceInterceptor">
+		<property name="attributes">
+			<props>
+				<prop key="query*">read</prop>
+				<prop key="is*">read</prop>
+				<prop key="find*">read</prop>
+				<prop key="get*">read</prop>
+				<prop key="load*">read</prop>
+				<prop key="count*">read</prop>
+				<prop key="list*">read</prop>
+				<prop key="check*">read</prop>
+				<prop key="save*">write</prop>
+				<prop key="upd*">write</prop>
+				<prop key="del*">write</prop>
+				<prop key="add*">write</prop>
+				<prop key="edit*">write</prop>
+				<prop key="create*">write</prop>
+				<prop key="set*">write</prop>
+				<prop key="follow*">write</prop>
+				<prop key="exit*">write</prop>
+				<prop key="kiss*">write</prop>
+				<prop key="complate*">write</prop>
+				<prop key="cancel*">write</prop>
+				<prop key="adminCancel*">write</prop>
+				<prop key="*">read</prop>
+			</props>
+		</property>
+		<property name="dataSourceKey">
+			<ref bean="dataSourceKey" />
+		</property>
+	</bean>
+	
+
+	<!-- 根据Name匹配拦截器 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<!-- 指定获取数据源的Interceptor -->
+				<value>dataSourceInterceptor</value>
+				<!-- 事务管理的Interceptor -->
+				<value>transactionInterceptor</value>
+				
+			</list>
+		</property>
+	</bean>
+	<bean id="propertyConfigurer"
+		class="com.recycling.common.config.MutilPropertyPlaceholderConfigurer">
+		<property name="systemPropertiesMode" value="2" />
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc-mysql.properties</value>
+				<value>classpath:config/memcache.properties</value>
+				<value>classpath:config/emsms_config.properties</value>
+                <value>classpath:config/weixin_config.properties</value>
+			</list>
+		</property>
+	</bean>
+		<!-- bean 工具 -->
+	<bean id="beanContext" class="com.recycling.common.config.BeanContext"></bean>
+
+    <!--定时器注解-->
+    <task:annotation-driven/>
+    <context:component-scan base-package="com.recycling.common.quartz"/>
+
+</beans>

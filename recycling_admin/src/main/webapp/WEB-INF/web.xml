@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<!-- 分页标签 -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/pagetag.tld</taglib-uri>
+			<taglib-location>/WEB-INF/pagetag.tld</taglib-location>
+		</taglib>
+		<jsp-property-group>
+			<description>
+				Special property group for JSP Configuration HTML
+				example.
+			</description>
+			<display-name>JSPConfiguration</display-name>
+			<url-pattern>*.do</url-pattern>
+			<el-ignored>true</el-ignored>
+			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>false</scripting-invalid>
+			<include-prelude></include-prelude>
+			<include-coda></include-coda>
+		</jsp-property-group>
+	</jsp-config>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>60000</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+            classpath*:spring/web-admin.xml
+        </param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- Spring 容器启动监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<!-- 权限过滤器 -->
+	<filter>
+		<filter-name>AdminAuthFilter</filter-name>
+		<filter-class>com.recycling.admin.common.filter.AdminAuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminAuthFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!-- 菜单过滤器 -->
+	<filter>
+		<filter-name>MenuFilter</filter-name>
+		<filter-class>com.recycling.admin.common.filter.AdminMenuFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MenuFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!-- spring mvc 过滤器 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:spring/springMvc-base.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+			<servlet-name>Connector</servlet-name>
+			<!-- <servlet-class>com.fredck.FCKeditor.connector.ConnectorServlet</servlet-class> -->
+			<servlet-class>com.recycling.admin.common.filter.ConnectorServlet</servlet-class>
+			<init-param>
+				<param-name>baseDir</param-name>
+				<param-value>/UserFiles/</param-value>
+			</init-param>
+			<init-param>
+				<param-name>debug</param-name>
+				<param-value>false</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+	
+		<servlet>
+			<servlet-name>SimpleUploader</servlet-name>
+			<servlet-class>com.recycling.admin.common.filter.SimpleUploaderServlet</servlet-class>
+			<init-param>
+				<param-name>baseDir</param-name>
+				<param-value>/UserFiles/</param-value>
+			</init-param>
+			<init-param>
+				<param-name>debug</param-name>
+				<param-value>false</param-value>
+			</init-param>
+			<init-param>
+				<param-name>enabled</param-name>
+				<param-value>true</param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedExtensionsFile</param-name>
+				<param-value></param-value>
+			</init-param>
+			<init-param>
+				<param-name>DeniedExtensionsFile</param-name>
+				<param-value>php|php3|php5|phtml|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|dll|reg|cgi</param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedSizeFile</param-name>
+				<param-value>2048000</param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedExtensionsImage</param-name>
+				<param-value>jpg|gif|jpeg|png|bmp</param-value>
+			</init-param>
+			<init-param>
+				<param-name>DeniedExtensionsImage</param-name>
+				<param-value></param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedSizeImage</param-name>
+				<param-value>2048000</param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedExtensionsFlash</param-name>
+				<param-value>swf|fla</param-value>
+			</init-param>
+			<init-param>
+				<param-name>DeniedExtensionsFlash</param-name>
+				<param-value></param-value>
+			</init-param>
+			<init-param>
+				<param-name>AllowedSizeFlash</param-name>
+				<param-value>2048000</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+	
+	  <servlet-mapping>
+	    <servlet-name>Connector</servlet-name>
+	    <url-pattern>/js/FCKeditor/editor/filemanager/browser/default/connectors/jsp/connector</url-pattern>
+	  </servlet-mapping>
+	  
+	  <servlet-mapping>
+	    <servlet-name>SimpleUploader</servlet-name>
+	    <url-pattern>/js/FCKeditor/editor/filemanager/upload/simpleuploader</url-pattern>
+	  </servlet-mapping>  
+	 
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	 <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/jsp/500.jsp</location>
+    </error-page>
+	
+	
+</web-app>

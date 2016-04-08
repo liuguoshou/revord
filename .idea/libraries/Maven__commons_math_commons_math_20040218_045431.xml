@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: commons-math:commons-math:20040218.045431">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-math/commons-math/20040218.045431/commons-math-20040218.045431.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-math/commons-math/20040218.045431/commons-math-20040218.045431-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/commons-math/commons-math/20040218.045431/commons-math-20040218.045431-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="recycling_parent">
+    <output-path>$PROJECT_DIR$/classes/artifacts/recycling_parent</output-path>
+    <root id="archive" name="recycling_parent.ear" />
+  </artifact>
+</component>

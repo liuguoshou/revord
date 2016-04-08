@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--引入数据库配置 -->
+	<import resource="classpath:spring/web-datasource.xml" />
+	
+	
+	
+	<bean id="propertyConfigurer"
+		class="com.recycling.common.config.MutilPropertyPlaceholderConfigurer">
+		<property name="systemPropertiesMode" value="2" />
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc-mysql.properties</value>
+				<value>classpath:config/jdbc-mysql-admin.properties</value>
+				<value>classpath:config/memcache.properties</value>
+				<value>classpath:config/emsms_config.properties</value>
+                <value>classpath:config/weixin_config.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 动态数据源的父类,其中配置的参数为子数据库的default值 -->
+	<bean id="admin.parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>${jdbc.admin.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.admin.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.admin.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.admin.password}</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>${jdbc.admin.maxPoolSize}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>${jdbc.admin.minPoolSize}</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>${jdbc.admin.initialPoolSize}</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>${jdbc.admin.idleConnectionTestPeriod}
+			</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>${jdbc.admin.maxIdleTime}</value>
+		</property>
+	</bean>
+	
+	<!-- 事务配置 -->
+	<bean id="admin.transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="admin.parentDataSource"></property>
+	</bean>
+
+	<!-- 事务管理拦截器 -->
+	<bean id="admin.transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="admin.transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="query*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="is*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="find*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="get*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="load*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="count*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="list*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="check*">PROPAGATION_SUPPORTS,-Exception</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="activation*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="destory*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="upd*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="rem*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="create*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_SUPPORTS,-Exception</prop>
+
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 根据Name匹配拦截器 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<!-- 指定获取数据源的Interceptor -->
+				<value>dataSourceInterceptor</value>
+				<!-- 事务管理的Interceptor -->
+				<value>transactionInterceptor</value>
+				<value>admin.transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+
+
+</beans>
